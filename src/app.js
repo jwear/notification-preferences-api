@@ -101,6 +101,20 @@ app.patch("/preferences/:id", (req, res) => {
   res.json(preference);
 });
 
+app.delete("/preferences/:id", (req, res) => {
+  const id = req.params.id;
+
+  const index = preferences.findIndex((p) => p.id === Number(id));
+
+  if (index === -1) {
+    return res.status(404).json({ error: "Notification preference not found" });
+  }
+
+  preferences.splice(index, 1);
+
+  res.status(204).send();
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
 });
