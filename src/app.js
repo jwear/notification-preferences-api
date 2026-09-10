@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3000;
 
 const preferences = [];
-let nextId = 0;
+let nextId = 1;
 
 app.use(express.json());
 
@@ -41,7 +41,19 @@ app.post("/preferences", (req, res) => {
 });
 
 app.get("/preferences", (req, res) => {
-  return res.json(preferences);
+  res.json(preferences);
+});
+
+app.get("/preferences/:id", (req, res) => {
+  const id = req.params.id;
+
+  const preference = preferences.find((p) => p.id === Number(id));
+
+  if (!preference) {
+    return res.status(404).json({ error: "Notification preference not found" });
+  }
+
+  res.json(preference);
 });
 
 app.listen(PORT, () => {
