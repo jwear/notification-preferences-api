@@ -40,6 +40,10 @@ app.post("/preferences", (req, res) => {
   res.status(201).json(preference);
 });
 
+app.get("/preferences", (req, res) => {
+  return res.json(preferences);
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
 });
