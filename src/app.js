@@ -20,7 +20,7 @@ app.post("/preferences", (req, res) => {
   ) {
     return res
       .status(400)
-      .json({ error: "userId, type, email, sms, and pus are required" });
+      .json({ error: "userId, type, email, sms, and push are required" });
   }
 
   if (
@@ -69,20 +69,18 @@ app.patch("/preferences/:id", (req, res) => {
   if (
     (userId && typeof userId !== "number") ||
     (type && typeof type !== "string") ||
-    (email && typeof email !== "boolean") ||
-    (sms && typeof sms !== "boolean") ||
-    (push && typeof push !== "boolean")
+    (email !== undefined && typeof email !== "boolean") ||
+    (sms !== undefined && typeof sms !== "boolean") ||
+    (push !== undefined && typeof push !== "boolean")
   ) {
     return res.status(400).json({ error: "Invalid field types" });
   }
 
-  console.log(req.body);
-
-  if (userId) {
+  if (userId !== undefined) {
     preference.userId = userId;
   }
 
-  if (type) {
+  if (type !== undefined) {
     preference.type = type;
   }
 
